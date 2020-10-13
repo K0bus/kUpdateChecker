@@ -21,17 +21,15 @@ public class UpdateChecker {
     }
 
     public String getVersion() {
-        AtomicReference<String> version = null;
-        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
-                if (scanner.hasNext()) {
-                    version.set(scanner.next());
-                }
-            } catch (IOException exception) {
-                this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
+        String version = null;
+        try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
+            if (scanner.hasNext()) {
+                version = scanner.next();
             }
-        });
-        return version.toString();
+        } catch (IOException exception) {
+            this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
+        }
+        return version;
     }
     public boolean isUpToDate()
     {
