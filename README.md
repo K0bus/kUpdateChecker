@@ -1,4 +1,4 @@
-[![](https://jitci.com/gh/K0bus/kUpdateChecker/svg)](https://jitci.com/gh/K0bus/kUpdateChecker)
+[![](https://jitpack.io/v/fr.K0bus/kUpdateChecker.svg)](https://jitpack.io/#fr.K0bus/kUpdateChecker)
 # kUpdateChecker
 
 A simple library for Spigot Update Check.
