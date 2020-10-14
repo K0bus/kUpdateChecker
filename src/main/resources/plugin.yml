@@ -1,4 +1,0 @@
-name: kUpdateChecker
-version: ${project.version}
-main: fr.k0bus.kUpdateChecker
-api-version: 1.16
