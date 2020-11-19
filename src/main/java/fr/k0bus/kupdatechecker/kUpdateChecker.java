@@ -1,4 +1,4 @@
-package fr.k0bus;
+package fr.k0bus.kupdatechecker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
