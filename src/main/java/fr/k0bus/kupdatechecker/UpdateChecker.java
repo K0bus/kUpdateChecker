@@ -33,7 +33,7 @@ public class UpdateChecker {
     }
     public boolean isUpToDate()
     {
-        return getVersion().biggerThan(this.version);
+        return this.version.biggerThan(getVersion());
     }
     public void checkUpdate()
     {
