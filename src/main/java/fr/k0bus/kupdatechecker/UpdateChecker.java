@@ -1,4 +1,4 @@
-package fr.k0bus;
+package fr.k0bus.kupdatechecker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,14 +11,16 @@ import java.util.logging.Level;
 public class UpdateChecker {
 
     private final JavaPlugin plugin;
+    private final Version version;
     private final int resourceId;
 
     public UpdateChecker(JavaPlugin plugin, int resourceId) {
         this.plugin = plugin;
+        this.version = new Version(this.plugin.getDescription().getVersion());
         this.resourceId = resourceId;
     }
 
-    public String getVersion() {
+    public Version getVersion() {
         String version = null;
         try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
             if (scanner.hasNext()) {
@@ -27,17 +29,17 @@ public class UpdateChecker {
         } catch (IOException exception) {
             this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
         }
-        return version;
+        return new Version(version);
     }
     public boolean isUpToDate()
     {
-        return this.plugin.getDescription().getVersion().equals(getVersion());
+        return getVersion().biggerThan(this.version);
     }
     public void checkUpdate()
     {
         if(isUpToDate())
             plugin.getLogger().log(Level.INFO, plugin.getDescription().getName() + " is up to date");
         else
-            plugin.getLogger().log(Level.WARNING, plugin.getDescription().getName() + " can be updated - Actual version : " + plugin.getDescription().getVersion() + " - New version : " + getVersion());
+            plugin.getLogger().log(Level.WARNING, plugin.getDescription().getName() + " can be updated - Actual version : " + version.toString() + " - New version : " + getVersion().toString());
     }
 }
